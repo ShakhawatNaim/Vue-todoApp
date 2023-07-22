@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice with Vue</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>To-Do App</h1>
+      <h4>Add Task in To-Do</h4>
+      <div class="addTask-input">
+        <input type="text" v-model="newTask" @keyup.enter="addTask" />
+        <button @click="addTask">Add</button>
+      </div>
+      <ul>
+        <li v-for="(task, index) in tasks" :key="index">
+          <input type="checkbox" v-model="task.completed" />
+          <span :class="{ 'completed': task.completed }" v-if="!task.editing"
+            >{{ task.text }}</span
+          >
+          <span v-if="task.completed">- is completed.</span>
+          <input
+            type="text"
+            v-model="editedTask"
+            v-if="task.editing"
+            @keyup.enter="saveTask(index)"
+          />
+          <button @click="editTask(index)" v-if="!task.editing">Edit</button>
+          <button @click="saveTask(index)" v-if="task.editing">Save</button>
+          <button @click="removeTask(index)">Remove</button>
+        </li>
+      </ul>
+    </div>
+    <!-- vue js cdn -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- js file -->
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>
